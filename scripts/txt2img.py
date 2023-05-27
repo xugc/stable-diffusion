@@ -61,7 +61,8 @@ def load_model_from_config(config, ckpt, verbose=False):
         print("unexpected keys:")
         print(u)
 
-    model.cuda()
+    if torch.cuda.is_available():
+        model.cuda()
     model.eval()
     return model
 
@@ -210,13 +211,13 @@ def main():
     parser.add_argument(
         "--config",
         type=str,
-        default="configs/stable-diffusion/v1-inference.yaml",
+        default="../configs/stable-diffusion/v1-inference.yaml",
         help="path to config which constructs model",
     )
     parser.add_argument(
         "--ckpt",
         type=str,
-        default="models/ldm/stable-diffusion-v1/model.ckpt",
+        default="../models/ldm/stable-diffusion-v1/model.ckpt",
         help="path to checkpoint of model",
     )
     parser.add_argument(
